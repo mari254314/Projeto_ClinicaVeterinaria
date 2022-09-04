@@ -6,13 +6,13 @@ public class Cliente {
     private String nome;
     private String end;
     private String email;
-    private int cep;
-    private int tel;
+    private String cep;
+    private String tel;
     private int id_animal;
 
     //Construtor
     
-    public Cliente(int id, String nome, String end, String email, int cep, int tel, int id_animal) {
+    public Cliente(int id, String nome, String end, String email, String cep, String tel, int id_animal) {
         this.id = id;
         this.nome = nome;
         this.end = end;
@@ -52,19 +52,19 @@ public class Cliente {
         this.email = email;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
-    public int getTel() {
+    public String getTel() {
         return tel;
     }
 
-    public void setTel(int tel) {
+    public void setTel(String tel) {
         this.tel = tel;
     }
 
