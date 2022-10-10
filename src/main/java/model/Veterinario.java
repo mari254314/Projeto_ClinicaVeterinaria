@@ -3,31 +3,24 @@ package model;
 public class Veterinario {
     
     private int id;
-    private int tel;
     private String nome;
-    private String end;
+    private String email;
+    private String telefone;
+
     
     //Construtor
 
-    public Veterinario(int id, int tel, String nome, String end) {
+    public Veterinario(int id, String nome, String email, String telefone) {
         this.id = id;
-        this.tel = tel;
         this.nome = nome;
-        this.end = end;
+        this.email = email;
+        this.telefone = telefone;
     }
       
     //Getters e Setters
 
     public int getId() {
         return id;
-    }
-
-    public int getTel() {
-        return tel;
-    }
-
-    public void setTel(int tel) {
-        this.tel = tel;
     }
 
     public String getNome() {
@@ -38,12 +31,23 @@ public class Veterinario {
         this.nome = nome;
     }
 
-    public String getEnd() {
-        return end;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEmail(String email) {
+        this.email = email;
     }
-    
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+               @Override
+    public String toString() {
+        return "Veterinario: " + "\nNome: " + nome + "\nEmail: " + email + "\nTelefone: " + telefone + "\n\n";
+    }
 }

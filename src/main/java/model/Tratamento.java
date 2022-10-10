@@ -4,19 +4,19 @@ package model;
 public class Tratamento {
     
     private int id;
-    private String data_fin;
-    private String data_ini;
+    private String nome;
+    private String dataFim;
+    private String dataIni;
     private int id_animal;
-    private int id_consulta;
     
     //Construtor
 
-    public Tratamento(int id, String data_fin, String data_ini, int id_animal, int id_consulta) {
+    public Tratamento(int id, String nome, String dataFim, String dataIni, int id_animal) {
         this.id = id;
-        this.data_fin = data_fin;
-        this.data_ini = data_ini;
+        this.nome = nome;
+        this.dataFim = dataFim;
+        this.dataIni = dataIni;
         this.id_animal = id_animal;
-        this.id_consulta = id_consulta;
     }
     
     //Getters e Setters
@@ -25,27 +25,35 @@ public class Tratamento {
         return id;
     }
 
-    public String getData_fin() {
-        return data_fin;
+    public String getNome() {
+        return nome;
     }
 
-    public void setData_fin(String data_fin) {
-        this.data_fin = data_fin;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getData_ini() {
-        return data_ini;
+    public String getDataFim() {
+        return dataFim;
     }
 
-    public void setData_ini(String data_ini) {
-        this.data_ini = data_ini;
+    public void setDataFim(String dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public String getDataIni() {
+        return dataIni;
+    }
+
+    public void setDataIni(String dataIni) {
+        this.dataIni = dataIni;
     }
 
     public int getId_animal() {
         return id_animal;
     }
-
-    public int getId_consulta() {
-        return id_consulta;
-    }   
+            @Override
+    public String toString() {
+        return "Tratamento: " + "\nNome: " + nome + "\nData Inicial: " + dataIni + "\nData Final: " + dataFim + "\n\n";
+    }
 }

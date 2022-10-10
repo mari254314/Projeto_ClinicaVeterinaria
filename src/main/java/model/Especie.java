@@ -23,5 +23,10 @@ public class Especie {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+        @Override
+    public String toString() {
+        return "\nEspécie: \n" + "Id: " + id + "\nTipo da Espécie: " + nome + "\n";
+    }
 
 }

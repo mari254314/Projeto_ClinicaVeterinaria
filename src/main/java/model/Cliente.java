@@ -1,30 +1,35 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/** @author Mariana **/
+
 public class Cliente {
-    
     private int id;
     private String nome;
-    private String end;
-    private String email;
+    private String endereco;
+    private String telefone;
     private String cep;
-    private String tel;
-    private int id_animal;
-
-    //Construtor
+    private String email;
     
-    public Cliente(int id, String nome, String end, String email, String cep, String tel, int id_animal) {
+    //private List<Animal> animais;
+
+    public Cliente(int id, String nome, String endereco, String telefone, String cep, String email) {
         this.id = id;
         this.nome = nome;
-        this.end = end;
-        this.email = email;
+        this.endereco = endereco;
+        this.telefone = telefone;
         this.cep = cep;
-        this.tel = tel;
-        this.id_animal= id_animal;
+        this.email = email;
+        //this.animais = new ArrayList<Animal>();
     }
     
-    //Getters e Setters
-
-    public int getId() {
+    public int getId(){
         return id;
     }
 
@@ -32,44 +37,67 @@ public class Cliente {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public String getEnd() {
-        return end;
-    }
-
-    public void setEnd(String end) {
-        this.end = end;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public String getTelefone() {
+        return telefone;
     }
 
     public String getCep() {
         return cep;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
     public void setCep(String cep) {
         this.cep = cep;
     }
 
-    public String getTel() {
-        return tel;
+   /* public void setAnimais(List<Animal> animais) {
+        this.animais = animais;
+    }  
+    
+    public void setEmail(String email){
+        if(!email.equals("")){
+            this.email = email;
+        }
     }
 
-    public void setTel(String tel) {
-        this.tel = tel;
+    public boolean addAnimal(Animal animal){
+        if(!animal.getNome().isBlank()){
+            animais.add(animal);
+            return true;
+        }
+        return false;
     }
-
-    public int getId_animal() {
-        return id_animal;
-    }
-
+    
+    public List<Animal> getAnimais(){
+        List<Animal> copia = new ArrayList<Animal>(animais);        
+        return copia;
+    }*/
+    
+    @Override
+    public String toString() {        
+        String desc = "Cliente:" + "\nId: " + id + "\nNome: " + nome + "\nEndereco=: " + endereco + "\nTelefone:" 
+                + telefone + "\nCep: " + cep + "\nEmail: " + email + "\n\n";
+       // String strAnimais = animais.toString();
+       return desc + "\n";
+       //return desc + "\n" + strAnimais;
+    }    
 }

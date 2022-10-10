@@ -31,6 +31,15 @@ public class Exame {
     public int getId_consulta() {
         return id_consulta;
     }
+
+    public void setId_consulta(int id_consulta) {
+        this.id_consulta = id_consulta;
+    }
+  
+            @Override
+    public String toString() {
+        return "Exame: " + "\nExame n° " + id + "\nDescrição: " + descricao + "\n\n";
+    }
 }
 
    

@@ -1,60 +1,118 @@
 package model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import static model.DAO.getConnection;
 
-public class AnimalDAO {
-    private List<Animal> animais = new ArrayList<Animal>();
-    private int id_animal = 1;
+/** @author Mariana **/
 
-    public List<Animal> create(String sexo, String nome, int idade,  int id_especie, int id_cliente, int id_tratamento) {
-        Animal animal = new Animal(id_animal, sexo, nome, idade, id_especie, id_cliente, id_tratamento);
-        this.animais.add(animal);
-        id_animal++;
-        return this.animais;
+  public class AnimalDAO extends DAO {
+    private static AnimalDAO instance;
+
+    private AnimalDAO() {
+        getConnection();
+        createTable();
     }
 
-    public List<Animal> retrieveAll() {
-        return this.animais;
+    // Singleton
+    public static AnimalDAO getInstance() {
+        return (instance==null?(instance = new AnimalDAO()):instance);
     }
 
-    public List<Animal> retrieveByID(int id) {
-        return (List<Animal>) this.animais.stream().filter(item -> item.getId() == id).collect(Collectors.toList());
-    }
-
-    public List<Animal> retrieveByClientID(int id) {
-        return (List<Animal>) this.animais.stream().filter(item -> item.getId_cliente()== id).collect(Collectors.toList());
-    }
-
-    public int update(int id, String sexo, String nome, int idade,  int id_especie, int id_cliente, int id_tratamento) {
-        int index = 0;
-
-        for (Animal animal:this.animais) {
-            if (animal.getId() == id) {
-                Animal animal_update = this.animais.get(index);
-                animal_update.setNome(nome);
-                animal_update.setIdade(idade);
-                animal_update.setSexo(sexo);
-                break;
-            }
-            index++;
+// CRUD    
+    public Animal create(String nome, int idade, String sexo, int id_especie, Cliente cliente) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("INSERT INTO animal (nome, idade, sexo, id_especie, id_cliente) VALUES (?,?,?,?,?)");
+            stmt.setString(1, nome);
+            stmt.setInt(2, idade);
+            stmt.setString(3, sexo);
+            stmt.setInt(4, id_especie);
+            stmt.setInt(5, cliente.getId());
+            executeUpdate(stmt);
+        } catch (SQLException ex) {
+            Logger.getLogger(AnimalDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return 1;
+        return this.retrieveById(lastId("animal","id"));
     }
-
-    public int delete(int id) {
-        int index = 0;
-
-        for (Animal animal:this.animais) {
-            if (animal.getId() == id) {
-                this.animais.remove(index);
-                break;
-            }
-            index++;
+    
+    private Animal buildObject(ResultSet rs) {
+        Animal animal = null;
+        try {
+            animal = new Animal(rs.getInt("id"), rs.getString("nome"), rs.getInt("idade"), rs.getString("sexo"), rs.getInt("id_especie"), rs.getInt("id_cliente"));
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
         }
-
-        return 1;
+        return animal;
     }
+
+    // Generic Retriever
+    public List retrieve(String query) {
+        List<Animal> animais = new ArrayList();
+        ResultSet rs = getResultSet(query);
+        try {
+            while (rs.next()) {
+                animais.add(buildObject(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+        return animais;
+    }
+    
+    // RetrieveAll
+    public List retrieveAll() {
+        return this.retrieve("SELECT * FROM animal");
+    }
+    
+    // RetrieveLast
+    public List retrieveLast(){
+        return this.retrieve("SELECT * FROM animal WHERE id = " + lastId("animal","id"));
+    }
+
+    // RetrieveById
+    public Animal retrieveById(int id) {
+        List<Animal> animais = this.retrieve("SELECT * FROM animal WHERE id = " + id);
+        return (animais.isEmpty()?null:animais.get(0));
+    }
+
+    // RetrieveBySimilarName
+    public List retrieveBySimilarName(String nome) {
+        return this.retrieve("SELECT * FROM animal WHERE nome LIKE '%" + nome + "%'");
+    }    
+        
+    // Updade
+    public void update(Animal animal) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("UPDATE animal SET nome=?, idade=?, sexo=?, id_especie=?, id_cliente=? WHERE id=?");
+            stmt.setString(1, animal.getNome());
+            stmt.setInt(2, animal.getIdade());
+            stmt.setString(3, animal.getSexo());
+            stmt.setInt(4, animal.getId_especie());
+            stmt.setInt(5, animal.getId_cliente());
+            stmt.setInt(6, animal.getId());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+        // Delete   
+    public void delete(Animal animal) {
+        PreparedStatement stmt;
+        try {
+            stmt = DAO.getConnection().prepareStatement("DELETE FROM animal WHERE id = ?");
+            stmt.setInt(1, animal.getId());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+
 }

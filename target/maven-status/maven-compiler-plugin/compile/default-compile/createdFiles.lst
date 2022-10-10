@@ -1,0 +1,13 @@
+model\Consulta.class
+model\Veterinario.class
+model\Animal.class
+model\Tratamento.class
+model\TratamentoDAO.class
+model\DAO.class
+model\VeterinarioDAO.class
+model\Cliente.class
+model\Especie.class
+model\EspecieDAO.class
+model\ExameDAO.class
+model\AnimalDAO.class
+model\Exame.class

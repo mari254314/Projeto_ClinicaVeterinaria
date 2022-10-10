@@ -3,57 +3,116 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ClienteDAO {
-    private List<Cliente> clientes = new ArrayList<Cliente>();
-    private int id_cliente = 1;
+/** @author Mariana **/
 
-    public List<Cliente> create(String nome, String end, String email, String cep, String tel, int id_animal) {
-        Cliente clientes = new Cliente(id_cliente, nome, end, email, cep, tel, id_animal);
-        this.clientes.add(clientes);
-        id_cliente++;
-        return this.clientes;
+  public class ClienteDAO extends DAO {
+    private static ClienteDAO instance;
+
+    private ClienteDAO() {
+        getConnection();
+        createTable();
     }
 
-    public List<Cliente> retrieveAll() {
-        return this.clientes;
+    // Singleton
+    public static ClienteDAO getInstance() {
+        return (instance==null?(instance = new ClienteDAO()):instance);
     }
 
-    public List<Cliente> retrieveId(int id) {
-        return (List<Cliente>) this.clientes.stream().filter(item -> item.getId() == id).collect(Collectors.toList());
-    }
-
-    public int update(int id, String nome, String end, String email, String cep, String tel) {
-        int index = 0;
-
-        for (Cliente clientes:this.clientes) {
-            if (clientes.getId() == id) {
-                Cliente cliente_update = this.clientes.get(index);
-                cliente_update.setNome(nome);
-                cliente_update.setEnd(end);
-                cliente_update.setEmail(email);
-                cliente_update.setCep(cep);
-                cliente_update.setTel(tel);
-                break;
-            }
-            index++;
+// CRUD    
+    public Cliente create(String nome, String endereco, String telefone, String cep, String email) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("INSERT INTO cliente (nome, endereco, telefone, cep, email) VALUES (?,?,?,?,?)");
+            stmt.setString(1, nome);
+            stmt.setString(2, endereco);
+            stmt.setString(3, telefone);
+            stmt.setString(4, cep);
+            stmt.setString(5, email);
+            executeUpdate(stmt);
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return 1;
+        return this.retrieveById(lastId("cliente","id"));
     }
 
-    public int delete(int id) {
-        int index = 0;
-
-        for (Cliente cliente:this.clientes) {
-            if (cliente.getId() == id) {
-                this.clientes.remove(index);
-                break;
-            }
-            index++;
+    private Cliente buildObject(ResultSet rs) {
+        Cliente cliente = null;
+        try {
+            cliente = new Cliente(rs.getInt("id"), rs.getString("nome"), rs.getString("endereco"), rs.getString("telefone"), rs.getString("cep"), rs.getString("email"));
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
         }
-
-        return 1;
+        return cliente;
     }
 
+    // Generic Retriever
+    public List retrieve(String query) {
+        List<Cliente> clientes = new ArrayList();
+        ResultSet rs = getResultSet(query);
+        try {
+            while (rs.next()) {
+                clientes.add(buildObject(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+        return clientes;
+    }
+    
+    // RetrieveAll
+    public List retrieveAll() {
+        return this.retrieve("SELECT * FROM cliente");
+    }
+    
+    // RetrieveLast
+    public List retrieveLast(){
+        return this.retrieve("SELECT * FROM cliente WHERE id = " + lastId("cliente","id"));
+    }
+
+    // RetrieveById
+    public Cliente retrieveById(int id) {
+        List<Cliente> clientes = this.retrieve("SELECT * FROM cliente WHERE id = " + id);
+        return (clientes.isEmpty()?null:clientes.get(0));
+    }
+
+    // RetrieveBySimilarName
+    public List retrieveBySimilarName(String nome) {
+        return this.retrieve("SELECT * FROM cliente WHERE nome LIKE '%" + nome + "%'");
+    }    
+        
+    // Updade
+    public void update(Cliente cliente) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("UPDATE cliente SET nome=?, endereco=?, telefone=?, cep=?, email=? WHERE id=?");
+            stmt.setString(1, cliente.getNome());
+            stmt.setString(2, cliente.getEndereco());
+            stmt.setString(3, cliente.getTelefone());
+            stmt.setString(4, cliente.getCep());
+            stmt.setString(5, cliente.getEmail());
+                stmt.setInt(6, cliente.getId());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+        // Delete   
+    public void delete(Cliente cliente) {
+        PreparedStatement stmt;
+        try {
+            stmt = DAO.getConnection().prepareStatement("DELETE FROM cliente WHERE nome = ?");
+            stmt.setString(1, cliente.getNome());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
 }
+  }

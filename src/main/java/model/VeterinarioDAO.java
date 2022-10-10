@@ -1,56 +1,113 @@
 package model;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
+import static model.DAO.getConnection;
 
-public class VeterinarioDAO {
-    private List<Veterinario> veterinarios = new ArrayList<Veterinario>();
-    private int id_veterinario = 1;
+/** @author Mariana **/
 
-    public List<Veterinario> create(int tel, String nome, String end) {
-        Veterinario veterinario = new Veterinario(id_veterinario, tel, nome, end);
-        this.veterinarios.add(veterinario);
-        id_veterinario++;
-        return this.veterinarios;
+  public class VeterinarioDAO extends DAO {
+    private static VeterinarioDAO instance;
+
+    private VeterinarioDAO() {
+        getConnection();
+        createTable();
     }
 
-    public List<Veterinario> retrieveAll() {
-        return this.veterinarios;
+    // Singleton
+    public static VeterinarioDAO getInstance() {
+        return (instance==null?(instance = new VeterinarioDAO()):instance);
     }
 
-    public List<Veterinario> retrieveByID(int id) {
-        return (List<Veterinario>) this.veterinarios.stream().filter(item -> item.getId() == id).collect(Collectors.toList());
-    }
-
-    public int update(int id, int tel, String nome, String end) {
-        int index = 0;
-
-        for (Veterinario veterinario:this.veterinarios) {
-            if (veterinario.getId() == id) {
-                Veterinario veterinario_update = this.veterinarios.get(index);
-                veterinario_update.setTel(tel);
-                veterinario_update.setNome(nome);
-                veterinario_update.setEnd(end);
-                break;
-            }
-            index++;
+// CRUD    
+    public Veterinario create(String nome, String email, String telefone) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("INSERT INTO veterinario (nome, email, telefone) VALUES (?,?,?)");
+            stmt.setString(1, nome);
+            stmt.setString(2, email);
+            stmt.setString(3, telefone);
+            executeUpdate(stmt);
+        } catch (SQLException ex) {
+            Logger.getLogger(VeterinarioDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        return 1;
+        return this.retrieveById(lastId("veterinario","id"));
     }
-
-    public int delete(int id) {
-        int index = 0;
-
-        for (Veterinario veterinario:this.veterinarios) {
-            if (veterinario.getId() == id) {
-                this.veterinarios.remove(index);
-                break;
-            }
-            index++;
+    
+    private Veterinario buildObject(ResultSet rs) {
+        Veterinario veterinario = null;
+        try {
+            veterinario = new Veterinario(rs.getInt("id"), rs.getString("nome"), rs.getString("email"), rs.getString("telefone"));
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
         }
-
-        return 1;
+        return veterinario;
     }
-}
+
+    // Generic Retriever
+    public List retrieve(String query) {
+        List<Veterinario> veterinarios = new ArrayList();
+        ResultSet rs = getResultSet(query);
+        try {
+            while (rs.next()) {
+                veterinarios.add(buildObject(rs));
+            }
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+        return veterinarios;
+    }
+    
+    // RetrieveAll
+    public List retrieveAll() {
+        return this.retrieve("SELECT * FROM veterinario");
+    }
+    
+    // RetrieveLast
+    public List retrieveLast(){
+        return this.retrieve("SELECT * FROM veterinario WHERE id = " + lastId("veterinario","id"));
+    }
+
+    // RetrieveById
+    public Veterinario retrieveById(int id) {
+        List<Veterinario> veterinarios = this.retrieve("SELECT * FROM veterinario WHERE id = " + id);
+        return (veterinarios.isEmpty()?null:veterinarios.get(0));
+    }
+
+    // RetrieveBySimilarName
+    public List retrieveBySimilarName(String nome) {
+        return this.retrieve("SELECT * FROM veterinario WHERE nome LIKE '%" + nome + "%'");
+    }    
+        
+    // Updade
+    public void update(Veterinario veterinario) {
+        try {
+            PreparedStatement stmt;
+            stmt = DAO.getConnection().prepareStatement("UPDATE veterinario SET nome=?, email=?, telefone=? WHERE id=?");
+            stmt.setString(1, veterinario.getNome());             
+            stmt.setString(2, veterinario.getEmail()); 
+            stmt.setString(3, veterinario.getTelefone());  
+                stmt.setInt(4, veterinario.getId());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+        // Delete   
+    public void delete(Veterinario veterinario) {
+        PreparedStatement stmt;
+        try {
+            stmt = DAO.getConnection().prepareStatement("DELETE FROM veterinario WHERE id = ?");
+            stmt.setInt(1, veterinario.getId());
+            executeUpdate(stmt);
+        } catch (SQLException e) {
+            System.err.println("Exception: " + e.getMessage());
+        }
+    }
+  }
