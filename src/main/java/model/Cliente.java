@@ -64,6 +64,12 @@ public class Cliente {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
+    
+     public void setEmail(String email){
+        if(!email.equals("")){
+            this.email = email;
+        }
+    }
 
     public void setCep(String cep) {
         this.cep = cep;
@@ -72,13 +78,7 @@ public class Cliente {
    /* public void setAnimais(List<Animal> animais) {
         this.animais = animais;
     }  
-    
-    public void setEmail(String email){
-        if(!email.equals("")){
-            this.email = email;
-        }
-    }
-
+   
     public boolean addAnimal(Animal animal){
         if(!animal.getNome().isBlank()){
             animais.add(animal);

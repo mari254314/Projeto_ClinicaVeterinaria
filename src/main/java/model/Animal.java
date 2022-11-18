@@ -52,7 +52,11 @@ public class Animal {
     public int getId_cliente() {
         return id_cliente;
     }
-    
+
+    public void setId_especie(int id_especie) {
+        this.id_especie = id_especie;
+    }
+      
     @Override
     public String toString() {
         return "Animal: " + "\nNome: " + nome + "\nIdade: " + idade + "\nSexo: " + sexo + "\nId da Espécie: " + id_especie + "\n\n";

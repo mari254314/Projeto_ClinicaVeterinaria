@@ -77,6 +77,13 @@ import static model.DAO.getConnection;
         List<Especie> especies = this.retrieve("SELECT * FROM especie WHERE id = " + id);
         return (especies.isEmpty()?null:especies.get(0));
     }
+    
+    // RetrieveByName
+    public Especie retrieveByName(String nome) {
+         List<Especie> especies = this.retrieve("SELECT * FROM especie WHERE name = '" + nome + "'");
+         return (especies.isEmpty()?null:especies.get(0));
+     
+    }  
 
     // RetrieveBySimilarName
     public List retrieveBySimilarName(String nome) {

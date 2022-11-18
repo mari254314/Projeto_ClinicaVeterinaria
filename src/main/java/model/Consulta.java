@@ -1,18 +1,21 @@
 package model;
 
+import java.util.Calendar;
+
 public class Consulta {
     
     private int id;
-    private String horario;
-    private String data;
+    private int horario;
+    private Calendar data;
     private String comentario;
     private int id_veterinario;
     private int id_animal;
     private int id_tratamento;
+    private boolean terminou;
     
     //Construtor
 
-    public Consulta(int id, String horario, String data, String comentario, int id_veterinario, int id_animal, int id_tratamento) {
+    public Consulta(int id, int horario, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento, boolean  terminou) {
         this.id = id;
         this.horario = horario;
         this.data = data;
@@ -20,6 +23,7 @@ public class Consulta {
         this.id_veterinario = id_veterinario;
         this.id_animal = id_animal;
         this.id_tratamento = id_tratamento;
+        this.terminou = terminou;
     }    
     //Getters and Setters
 
@@ -27,19 +31,19 @@ public class Consulta {
         return id;
     }
 
-    public String getHorario() {
+    public int getHorario() {
         return horario;
     }
 
-    public void setHorario(String horario) {
+    public void setHorario(int horario) {
         this.horario = horario;
     }
 
-    public String getData() {
+    public Calendar getData() {
         return data;
     }
 
-    public void setData(String data) {
+    public void setData(Calendar data) {
         this.data = data;
     }
 
@@ -62,11 +66,20 @@ public class Consulta {
     public int getId_tratamento() {
         return id_tratamento;
     }
+
+    public boolean isTerminou() {
+        return terminou;
+    }
+
+    public void setTerminou(boolean terminou) {
+        this.terminou = terminou;
+    }
+     
     
     @Override
     public String toString() {
         return "Consulta: " + "\nHorário: " + horario + "\nData: " + data + "\nComentário: " + comentario 
                 + "\nId do Veterinário: " + id_veterinario + "\nId do Animal: " + id_animal + "\nId do Tratamento: " + id_tratamento + "\n\n";
     }
-}    
-  
+
+}

@@ -81,10 +81,14 @@ import static model.DAO.getConnection;
         List<Animal> animais = this.retrieve("SELECT * FROM animal WHERE id = " + id);
         return (animais.isEmpty()?null:animais.get(0));
     }
+    
+     public List retrieveByIdCliente(int id_cliente) {
+        return this.retrieve("SELECT * FROM animal WHERE id_cliente = " + id_cliente);
+    }
 
     // RetrieveBySimilarName
-    public List retrieveBySimilarName(String nome) {
-        return this.retrieve("SELECT * FROM animal WHERE nome LIKE '%" + nome + "%'");
+    public List retrieveBySimilarName(int id_cliente, String nome) {
+        return this.retrieve("SELECT * FROM animal WHERE id_cliente = " + id_cliente + "AND nome LIKE '%" + nome + "%'");
     }    
         
     // Updade

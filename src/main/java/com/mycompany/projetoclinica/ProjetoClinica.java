@@ -5,8 +5,10 @@
 
 package com.mycompany.projetoclinica;
 
-import model.Exame;
-import model.ExameDAO;
+import model.Animal;
+import model.AnimalDAO;
+import model.Cliente;
+import model.ClienteDAO;
 
 
 /** @author Mariana **/
@@ -19,8 +21,8 @@ public class ProjetoClinica {
                    
         //Criando um novo cliente
         
-        /*Cliente cli = ClienteDAO.getInstance().create("Cliente 13", "Endereco 13", "Telefone 13", "Cep 13", "Email 13");
-        System.out.println(ClienteDAO.getInstance().retrieveAll());*/
+        //Cliente cli = ClienteDAO.getInstance().create("Cliente 15", "Endereco 15", "Telefone 15", "Cep 15", "Email 15");
+        //System.out.println(ClienteDAO.getInstance().retrieveById(14));
 
         //Atualizando os clientes 
 
@@ -51,9 +53,9 @@ public class ProjetoClinica {
             
         //Recuperar dados dos clientes - ById e All
         
-            /*System.out.println("Mostrando todo os clientes cadastrados: \n");
-            System.out.println(AnimalDAO.getInstance().retrieveAll());
-            System.out.println(AnimalDAO.getInstance().retrieveById(2));*/
+          //  System.out.println("Mostrando todo os clientes cadastrados: \n");
+          //  System.out.println(AnimalDAO.getInstance().retrieveAll());
+           // System.out.println(AnimalDAO.getInstance().retrieveById(5));
             
 /*****************************************************************************************************/
 
@@ -61,8 +63,8 @@ public class ProjetoClinica {
                    
         //Criando um novo animal
         
-         /*Animal ani = AnimalDAO.getInstance().create("Raul", 1, "Macho", 9, cli);
-         System.out.println(AnimalDAO.getInstance().retrieveAll());*/
+        //Animal ani = AnimalDAO.getInstance().create("Animal do Cliente 15", 5, "Macho", 2, cli);
+       // System.out.println(AnimalDAO.getInstance().retrieveById(14));
 
         //Atualizando os animais 
 
@@ -93,9 +95,9 @@ public class ProjetoClinica {
             
         //Recuperar dados dos animais - ById e All
         
-            /*System.out.println("Mostrando todos os animais cadastrados: \n");
-            System.out.println(AnimalDAO.getInstance().retrieveAll());
-            System.out.println(AnimalDAO.getInstance().retrieveById(2));*/
+//            System.out.println("Mostrando todos os animais cadastrados: \n");
+//            System.out.println(AnimalDAO.getInstance().retrieveAll());
+           // System.out.println(AnimalDAO.getInstance().retrieveById(15));
             
                    
 /*****************************************************************************************************/
@@ -286,10 +288,10 @@ public class ProjetoClinica {
         
         //todos os dados
         
-            Exame ex = new Exame(3,"Descrição passa a ser Exame yyy", 3);
-            ExameDAO.getInstance().update(ex);
-            System.out.println("Tudo atualizado! \n");
-            System.out.println(ExameDAO.getInstance().retrieveAll());
+//            Exame ex = new Exame(3,"Descrição passa a ser Exame yyy", 3);
+//            ExameDAO.getInstance().update(ex);
+//            System.out.println("Tudo atualizado! \n");
+//            System.out.println(ExameDAO.getInstance().retrieveAll());
 
         //Deletando um exame 
   

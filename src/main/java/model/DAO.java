@@ -117,12 +117,13 @@ public abstract class DAO {
             // Table appointment:
             stmt = DAO.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS consulta( \n"
                     + "id INTEGER PRIMARY KEY, \n"
-                    + "horario VARCHAR, \n"
-                    + "data TEXT, \n"
+                    + "horario INTEGER, \n"
+                    + "data DATE, \n"
                     + "comentario VARCHAR, \n"
                     + "id_veterinario INTEGER, \n"
                     + "id_animal INTEGER, \n"
-                    + "id_tratamento INTEGER); \n");
+                    + "obs VARCHAR); \n"
+                    + "terminou INTEGER); \n"   );
             executeUpdate(stmt);            
              // Table exam:
             stmt = DAO.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS exame( \n"
