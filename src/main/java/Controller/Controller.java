@@ -155,25 +155,20 @@ public class Controller {
     public static Animal adicionaAnimais(){
         return AnimalDAO.getInstance().create("", 0,"", 0, clienteSelecionado);
     }
-    
-    //Create novas consultas
-    public static Consulta adicionaConsultas(){
-        return ConsultaDAO.getInstance().create(0, Calendar.getInstance() ,"", 0, 0, 0, true);
-    }
-    
+
     //Botão Novo = atualiza Botão Novo
     public static boolean novosDados(JTable table){
          if(table.getModel() instanceof ClienteTableModel){
-            ((GenericTableModel)table.getModel()).addItem(Controller.adicionaCliente());
+            ((GenericTableModel)table.getModel()).addItem(adicionaCliente());
         }else if(table.getModel() instanceof AnimalTableModel){
-            ((GenericTableModel)table.getModel()).addItem(Controller.adicionaAnimais());
+            ((GenericTableModel)table.getModel()).addItem(adicionaAnimais());
         }else if(table.getModel() instanceof VetTableModel){
-            ((GenericTableModel)table.getModel()).addItem(Controller.adicionaVets());
+            ((GenericTableModel)table.getModel()).addItem(adicionaVets());
         }else if(table.getModel() instanceof EspecieTableModel){
-            ((GenericTableModel)table.getModel()).addItem(Controller.adicionaEspecies());
+            ((GenericTableModel)table.getModel()).addItem(adicionaEspecies());
         }else if(table.getModel() instanceof ConsultaTableModel){
               if((clienteSelecionado!=null)&&(animalSelecionado!=null)&&(vetSelecionado!=null)){
-                ((GenericTableModel)table.getModel()).addItem(Controller.adicionaConsultas());
+                ((GenericTableModel)table.getModel()).addItem(adicionarConsultas());
               }else{
                   return false;
               }
@@ -202,7 +197,30 @@ public class Controller {
         VeterinarioDAO.getInstance().delete(veterinario);
         vetSelecionadoTextField.setText("");
         vetSelecionado=null;
-
     }
     
+    /*******Consultas********/
+    
+    public static List getTodasConsultas(){
+        return ConsultaDAO.getInstance().retrieveAll();
+    }
+    
+    public static Consulta adicionarConsultas(){
+        return ConsultaDAO.getInstance().create(0, Calendar.getInstance(), "", vetSelecionado.getId(), animalSelecionado.getId(), 0);
+    }
+    
+    public static boolean apagaConsulta(JTable table){
+        if (table.getSelectedRow() >= 0){
+            Object item = ((GenericTableModel)table.getModel()).getItem(table.getSelectedRow());
+            ((GenericTableModel)table.getModel()).removeItem(table.getSelectedRow());
+            ConsultaDAO.getInstance().delete((Consulta)item);
+            return true;
+        }return false;
+    }
+    
+    
+    
+    public static void filtraConsultas(JTable table ) {//mais coisas aqui!!!!!!!!!1
+        
+    }
 }

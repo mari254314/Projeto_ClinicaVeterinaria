@@ -122,8 +122,8 @@ public abstract class DAO {
                     + "comentario VARCHAR, \n"
                     + "id_veterinario INTEGER, \n"
                     + "id_animal INTEGER, \n"
-                    + "obs VARCHAR); \n"
-                    + "terminou INTEGER); \n"   );
+                    + "obs VARCHAR); \n");
+//                  + "terminou BOOLEAN); \n"   );
             executeUpdate(stmt);            
              // Table exam:
             stmt = DAO.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS exame( \n"

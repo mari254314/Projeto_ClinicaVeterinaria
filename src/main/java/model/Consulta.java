@@ -11,11 +11,11 @@ public class Consulta {
     private int id_veterinario;
     private int id_animal;
     private int id_tratamento;
-    private boolean terminou;
+    //private boolean terminou;
     
     //Construtor
 
-    public Consulta(int id, int horario, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento, boolean  terminou) {
+    public Consulta(int id, int horario, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento) {
         this.id = id;
         this.horario = horario;
         this.data = data;
@@ -23,7 +23,7 @@ public class Consulta {
         this.id_veterinario = id_veterinario;
         this.id_animal = id_animal;
         this.id_tratamento = id_tratamento;
-        this.terminou = terminou;
+//        this.terminou = terminou;
     }    
     //Getters and Setters
 
@@ -67,13 +67,13 @@ public class Consulta {
         return id_tratamento;
     }
 
-    public boolean isTerminou() {
-        return terminou;
-    }
-
-    public void setTerminou(boolean terminou) {
-        this.terminou = terminou;
-    }
+//    public boolean isTerminou() {
+//        return terminou;
+//    }
+//
+//    public void setTerminou(boolean terminou) {
+//        this.terminou = terminou;
+//    }
      
     
     @Override

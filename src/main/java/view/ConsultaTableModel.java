@@ -26,7 +26,7 @@ public class ConsultaTableModel extends GenericTableModel{
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
      public ConsultaTableModel (List vDados){
-        super(vDados, new String[]{"Hora","Data","Cliente","Animal","Veterinário","Comentário","Fim"});
+        super(vDados, new String[]{"Hora","Data","Cliente","Animal","Veterinário","Comentário"});
     }
     
     @Override
@@ -44,8 +44,8 @@ public class ConsultaTableModel extends GenericTableModel{
                 return String.class;
             case 5:
                 return String.class;
-            case 6:
-                return Boolean.class;
+//            case 6:
+//                return Boolean.class;
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -71,8 +71,8 @@ public class ConsultaTableModel extends GenericTableModel{
                 return VeterinarioDAO.getInstance().retrieveById(consulta.getId_veterinario()).getNome();
             case 5:
                 return consulta.getComentario();
-            case 6:
-                return consulta.isTerminou();
+//            case 6:
+//                return consulta.isTerminou();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -102,9 +102,9 @@ public class ConsultaTableModel extends GenericTableModel{
             case 5:
                 consulta.setComentario((String)aValue);
                 break;
-            case 6:
-                consulta.setTerminou((Boolean)aValue);
-                break;    
+//            case 6:
+//                consulta.setTerminou((Boolean)aValue);
+//                break;    
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
