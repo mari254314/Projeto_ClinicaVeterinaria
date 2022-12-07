@@ -7,16 +7,16 @@ public class Tratamento {
     private String nome;
     private String dataFim;
     private String dataIni;
-    private int id_animal;
+    private String animal;
     
     //Construtor
 
-    public Tratamento(int id, String nome, String dataFim, String dataIni, int id_animal) {
+    public Tratamento(int id, String nome, String dataFim, String dataIni, String animal) {
         this.id = id;
         this.nome = nome;
         this.dataFim = dataFim;
         this.dataIni = dataIni;
-        this.id_animal = id_animal;
+        this.animal = animal;
     }
     
     //Getters e Setters
@@ -49,8 +49,12 @@ public class Tratamento {
         this.dataIni = dataIni;
     }
 
-    public int getId_animal() {
-        return id_animal;
+    public String getAnimal() {
+        return animal;
+    }
+
+    public void setAnimal(String animal) {
+        this.animal = animal;
     }
             @Override
     public String toString() {

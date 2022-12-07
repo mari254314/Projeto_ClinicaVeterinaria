@@ -9,6 +9,10 @@ import model.Animal;
 import model.AnimalDAO;
 import model.Cliente;
 import model.ClienteDAO;
+import model.Consulta;
+import model.ConsultaDAO;
+import model.Tratamento;
+import model.TratamentoDAO;
 
 
 /** @author Mariana **/
@@ -187,7 +191,7 @@ public class ProjetoClinica {
                    
         //Criando um novo tratamento
         
-//         Tratamento tra = TratamentoDAO.getInstance().create("Tratamento 3", "05/03/2022", "05/03/2022", 1);
+//         Tratamento tra = TratamentoDAO.getInstance().create("Tratamento 3", "05/03/2022", "05/03/2022", "");
 //         System.out.println(TratamentoDAO.getInstance().retrieveAll());
 
         //Atualizando os tratamentos 
@@ -229,8 +233,8 @@ public class ProjetoClinica {
                    
         //Criando uma nova consulta
         
-//         Consulta con = ConsultaDAO.getInstance().create("20:00", "02/02/2022", "Deu tudo certo!", 2, 2, 1);
-//         System.out.println(ConsultaDAO.getInstance().retrieveAll());
+         //Consulta con = ConsultaDAO.getInstance().create(20:00, "14/02/2022", "Deu tudo certo!", 0, 0, 0);
+         System.out.println(ConsultaDAO.getInstance().retrieveAll());
 
         //Atualizando as consultas 
 

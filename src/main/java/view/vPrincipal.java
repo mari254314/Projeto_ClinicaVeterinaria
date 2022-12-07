@@ -5,21 +5,10 @@
 package view;
 
 import Controller.Controller;
-import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-import com.formdev.flatlaf.FlatPropertiesLaf;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.synth.SynthLookAndFeel;
-import model.AnimalDAO;
-import model.ClienteDAO;
-import model.EspecieDAO;
-import model.VeterinarioDAO;
+import model.Exame;
 
 /**
  *
@@ -49,10 +38,12 @@ public class vPrincipal extends javax.swing.JFrame {
         jTextField3.setText("");
         jTextField4.setText("");
         
-        Controller.jRadioButtonClientesSelecionados(jTable1);
         jRadioButton1.setSelected(true);
+        Controller.jRadioButtonClientesSelecionados(jTable1);
         Controller.setTextFields(jTextField1, jTextField2, jTextField4);
         Controller.setTableModel(jTable2, new ConsultaTableModel(Controller.getTodasConsultas()));
+        Controller.setTableModel(jTable3, new TratamentoTableModel(Controller.getTodosTratamentos()));
+        Controller.setTableModel(jTable4, new ExameTableModel(Controller.getTodosExames()));
     }
 
     /**
@@ -345,14 +336,29 @@ public class vPrincipal extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable2);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todas", "Hoje", "Veterinário" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Filtrar por:");
 
         jToggleButton1.setBackground(new java.awt.Color(51, 51, 51));
         jToggleButton1.setText("Adicionar a um tratamento");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jToggleButton2.setBackground(new java.awt.Color(51, 51, 51));
         jToggleButton2.setText("Inserir Exame");
+        jToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -649,24 +655,51 @@ public class vPrincipal extends javax.swing.JFrame {
         Controller.jRadioButtonClientesSelecionados(jTable1);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        if(!Controller.novosDados(jTable2)){
-            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
-        }    }//GEN-LAST:event_jButton4ActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(!Controller.apagaConsulta(jTable2)){
-            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
-        }
+//        if(!Controller.apagaConsulta(jTable2)){
+//            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
+//        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        //Botao Novo de Tratamento
+        if(!Controller.novosDados(jTable3)){
+            JOptionPane.showMessageDialog(this, "Selecione um  tratamento.");
+        }
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        //Botao Apagar de Tratamento
+//        if(!Controller.apagaTratamento(Controller.getTratamentoSelecionado())){
+//            JOptionPane.showMessageDialog(this, "Selecione um tratamento.");
+//        }
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+//         if(!Controller.novosDados(jTable2)){
+//            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
+//         }
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
+        //Inserir Exame
+        if(!Controller.novosDados(jTable2)){
+            JOptionPane.showMessageDialog(this, "Selecione uma Consulta");
+        }else{
+        vExame exame = new vExame();
+        exame.setVisible(true);
+         }
+    }//GEN-LAST:event_jToggleButton2ActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        //Tratamento
+        vTratamento tratamento = new vTratamento();
+        tratamento.setVisible(true);
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments

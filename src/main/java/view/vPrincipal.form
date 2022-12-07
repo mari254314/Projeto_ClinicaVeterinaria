@@ -551,6 +551,9 @@
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -567,6 +570,9 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Adicionar a um tratamento"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JToggleButton" name="jToggleButton2">
                           <Properties>
@@ -575,6 +581,9 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Inserir Exame"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton2ActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

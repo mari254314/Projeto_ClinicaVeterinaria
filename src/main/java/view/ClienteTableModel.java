@@ -38,6 +38,7 @@ public class ClienteTableModel extends GenericTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+     
         Cliente client = (Cliente)vDados.get(rowIndex);
         
         switch (columnIndex) {
@@ -53,7 +54,8 @@ public class ClienteTableModel extends GenericTableModel {
                 return client.getEmail();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
-        }
+        }     
+      
     }
     
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {

@@ -15,6 +15,8 @@ import model.AnimalDAO;
 import model.ClienteDAO;
 import model.Consulta;
 import model.ConsultaDAO;
+import model.Tratamento;
+import model.TratamentoDAO;
 import model.VeterinarioDAO;
 
 /**
@@ -26,8 +28,8 @@ public class ConsultaTableModel extends GenericTableModel{
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     
      public ConsultaTableModel (List vDados){
-        super(vDados, new String[]{"Hora","Data","Cliente","Animal","Veterinário","Comentário"});
-    }
+        super(vDados, new String[]{"Horário", "Data", "Comentário", "Veterinario", "Animal", "Tratamento"});
+    }//horario, data, comentario, id_veterinario, id_animal, id_tratamento
     
     @Override
     public Class<?> getColumnClass(int columnIndex){
@@ -44,8 +46,6 @@ public class ConsultaTableModel extends GenericTableModel{
                 return String.class;
             case 5:
                 return String.class;
-//            case 6:
-//                return Boolean.class;
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
@@ -53,8 +53,12 @@ public class ConsultaTableModel extends GenericTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
+        
+        if(rowIndex!=0){
+            
         Consulta consulta = (Consulta)vDados.get(rowIndex);
         Animal animal;
+        Tratamento tratamento;
         
         switch (columnIndex) {
             case 0:
@@ -62,20 +66,20 @@ public class ConsultaTableModel extends GenericTableModel{
             case 1:
                 return dateFormat.format(consulta.getData().getTime());
             case 2:
-                animal = AnimalDAO.getInstance().retrieveById(consulta.getId_animal());
-                return ClienteDAO.getInstance().retrieveById(animal.getId_cliente()).getNome();
-            case 3:
-                animal = AnimalDAO.getInstance().retrieveById(consulta.getId_animal());
-                return animal.getNome();
-            case 4:
-                return VeterinarioDAO.getInstance().retrieveById(consulta.getId_veterinario()).getNome();
-            case 5:
                 return consulta.getComentario();
-//            case 6:
-//                return consulta.isTerminou();
+            case 3: 
+                return VeterinarioDAO.getInstance().retrieve(consulta.getId_veterinario());
+            case 4: 
+                return AnimalDAO.getInstance().retrieve(consulta.getId_animal());
+            case 5:
+                return TratamentoDAO.getInstance().retrieve(consulta.getId_animal());
+//                tratamento = TratamentoDAO.getInstance().retrieve(consulta.getId_tratamento());
+//                return tratamento.getNome();
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }
+        }
+        return null;
     }
     
     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
@@ -94,17 +98,14 @@ public class ConsultaTableModel extends GenericTableModel{
                 consulta.setData(cal);
                 break;
             case 2:
+                 consulta.setComentario((String)aValue);
                 break;
             case 3:
                 break;
             case 4:
                 break;
             case 5:
-                consulta.setComentario((String)aValue);
                 break;
-//            case 6:
-//                consulta.setTerminou((Boolean)aValue);
-//                break;    
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds");
         }

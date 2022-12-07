@@ -8,14 +8,14 @@ public class Consulta {
     private int horario;
     private Calendar data;
     private String comentario;
-    private int id_veterinario;
-    private int id_animal;
-    private int id_tratamento;
+    private String id_veterinario;
+    private String id_animal;
+    private String id_tratamento;
     //private boolean terminou;
     
     //Construtor
 
-    public Consulta(int id, int horario, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento) {
+    public Consulta(int id, int horario, Calendar data, String comentario, String id_veterinario, String id_animal, String id_tratamento) {
         this.id = id;
         this.horario = horario;
         this.data = data;
@@ -55,26 +55,30 @@ public class Consulta {
         this.comentario = comentario;
     }
 
-    public int getId_veterinario() {
+    public String getId_veterinario() {
         return id_veterinario;
     }
 
-    public int getId_animal() {
+    public void setId_veterinario(String id_veterinario) {
+        this.id_veterinario = id_veterinario;
+    }
+
+    public String getId_animal() {
         return id_animal;
     }
 
-    public int getId_tratamento() {
+    public void setId_animal(String id_animal) {
+        this.id_animal = id_animal;
+    }
+
+    public String getId_tratamento() {
         return id_tratamento;
     }
 
-//    public boolean isTerminou() {
-//        return terminou;
-//    }
-//
-//    public void setTerminou(boolean terminou) {
-//        this.terminou = terminou;
-//    }
-     
+    public void setId_tratamento(String id_tratamento) {
+        this.id_tratamento = id_tratamento;
+    }
+
     
     @Override
     public String toString() {

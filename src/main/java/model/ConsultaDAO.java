@@ -28,17 +28,16 @@ import static model.DAO.getConnection;
     }
 
 // CRUD    
-    public Consulta create(int horario, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento) {
+    public Consulta create(int horario, Calendar data, String comentario, String id_veterinario, String id_animal, String id_tratamento) {
         try {
             PreparedStatement stmt;
             stmt = DAO.getConnection().prepareStatement("INSERT INTO consulta (horario, data, comentario, id_veterinario, id_animal, id_tratamento) VALUES (?,?,?,?,?,?)");
             stmt.setInt(1, horario);
             stmt.setDate(2, new Date(data.getTimeInMillis()));
             stmt.setString(3, comentario);
-            stmt.setInt(4, id_veterinario);
-            stmt.setInt(5, id_animal);
-            stmt.setInt(6, id_tratamento);
-            //stmt.setInt(7, (terminou?1:0));
+            stmt.setString(4, id_veterinario);
+            stmt.setString(5, id_animal);
+            stmt.setString(6, id_tratamento);
             executeUpdate(stmt);
         } catch (SQLException ex) {
             Logger.getLogger(ConsultaDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +51,7 @@ import static model.DAO.getConnection;
             Calendar dt = Calendar.getInstance();
             dt.setTime(rs.getDate("data"));
                     
-            consulta = new Consulta(rs.getInt("id"), rs.getInt("horario"), dt , rs.getString("comentario"), rs.getInt("id_veterinario"), rs.getInt("id_animal"), rs.getInt("id_tratamento"));
+            consulta = new Consulta(rs.getInt("id"), rs.getInt("horario"), dt , rs.getString("comentario"), rs.getString("id_veterinario"), rs.getString("id_animal"), rs.getString("id_tratamento"));
         } catch (SQLException e) {
             System.err.println("Exception: " + e.getMessage());
         }
@@ -102,10 +101,9 @@ import static model.DAO.getConnection;
             stmt.setInt(1, consulta.getHorario());
             stmt.setDate(2, new Date(consulta.getData().getTimeInMillis()));
             stmt.setString(3, consulta.getComentario());
-            stmt.setInt(4, consulta.getId_veterinario());
-            stmt.setInt(5, consulta.getId_animal());            
-            stmt.setInt(6, consulta.getId_tratamento());
-            //stmt.setInt(7, (consulta.isTerminou()?1:0));
+            stmt.setString(4, consulta.getId_veterinario());
+            stmt.setString(5, consulta.getId_animal());            
+            stmt.setString(6, consulta.getId_tratamento());
             stmt.setInt(7, consulta.getId());
             executeUpdate(stmt);
         } catch (SQLException e) {

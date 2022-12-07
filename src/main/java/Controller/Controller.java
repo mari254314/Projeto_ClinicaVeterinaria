@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,13 +20,19 @@ import model.Consulta;
 import model.ConsultaDAO;
 import model.Especie;
 import model.EspecieDAO;
+import model.Exame;
+import model.ExameDAO;
+import model.Tratamento;
+import model.TratamentoDAO;
 import model.Veterinario;
 import model.VeterinarioDAO;
 import view.AnimalTableModel;
 import view.ClienteTableModel;
-import view.ConsultaTableModel;
+//import view.ConsultaTableModel;
 import view.EspecieTableModel;
+import view.ExameTableModel;
 import view.GenericTableModel;
+import view.TratamentoTableModel;
 import view.VetTableModel;
 
 /**
@@ -37,6 +44,7 @@ public class Controller {
     private static Cliente clienteSelecionado = null;
     private static Animal animalSelecionado= null;
     private static Veterinario vetSelecionado= null;
+    private static Tratamento tratamentoSelecionado = null;
     
     private static JTextField clienteSelecionadoTextField = null;
     private static JTextField animalSelecionadoTextField = null;
@@ -65,8 +73,12 @@ public class Controller {
         return vetSelecionado;
     }
     
+     public static Tratamento getTratamentoSelecionado(){
+        return tratamentoSelecionado;
+    }
+    
     public static void setSelected(Object selected){
-        
+ 
         if(selected instanceof Cliente){
             clienteSelecionado = (Cliente)selected;
             clienteSelecionadoTextField.setText(clienteSelecionado.getNome());
@@ -166,12 +178,10 @@ public class Controller {
             ((GenericTableModel)table.getModel()).addItem(adicionaVets());
         }else if(table.getModel() instanceof EspecieTableModel){
             ((GenericTableModel)table.getModel()).addItem(adicionaEspecies());
-        }else if(table.getModel() instanceof ConsultaTableModel){
-              if((clienteSelecionado!=null)&&(animalSelecionado!=null)&&(vetSelecionado!=null)){
-                ((GenericTableModel)table.getModel()).addItem(adicionarConsultas());
-              }else{
-                  return false;
-              }
+        }else if(table.getModel() instanceof TratamentoTableModel){
+            ((GenericTableModel)table.getModel()).addItem(adicionaTratamentos());
+        }else if (table.getModel() instanceof ExameTableModel){
+            ((GenericTableModel)table.getModel()).addItem(adicionaExames());
         }
          return true;
     }
@@ -205,22 +215,59 @@ public class Controller {
         return ConsultaDAO.getInstance().retrieveAll();
     }
     
-    public static Consulta adicionarConsultas(){
-        return ConsultaDAO.getInstance().create(0, Calendar.getInstance(), "", vetSelecionado.getId(), animalSelecionado.getId(), 0);
+//    public static Consulta adicionarConsultas(){
+//        return ConsultaDAO.getInstance().create(0, Calendar.getInstance(), "", vetSelecionado.getId(), animalSelecionado.getId(), 0);
+//    }
+//    
+//    public static boolean apagaConsulta(JTable table){
+//        if (table.getSelectedRow() >= 0){
+//            Object item = ((GenericTableModel)table.getModel()).getItem(table.getSelectedRow());
+//            ((GenericTableModel)table.getModel()).removeItem(table.getSelectedRow());
+//            ConsultaDAO.getInstance().delete((Consulta)item);
+//            return true;
+//        }return false;
+//    }
+//    
+    
+    
+//    public static void filtraConsultas(JTable table, JComboBox jcTodas, JComboBox jcHoje, JComboBox jcVet) {//mais coisas aqui!!!!!!!!!1
+//        if(table.getModel() instanceof ConsultaTableModel){
+//            String where = "";
+//            if(!jcTodas.isSelected()){
+//                where = "WHERE data >= date('now')";
+//            }
+//            
+//            String query = "SELEECT * FROM consulta"+where+"ORDER BY data, horario";
+//            ((GenericTableModel) table.getModel()).addListOfItems(ConsultaDAO.getInstance().retrieve(query));
+//        }
+//    }
+//    
+    /*Tratamento*/
+    
+     //Botão Apaga = Tratamento
+    public static void apagaTratamento(Tratamento tratamento){
+        TratamentoDAO.getInstance().delete(tratamento);
+    }   
+    
+    //Create novos tratamentos
+    public static Tratamento adicionaTratamentos(){
+        return TratamentoDAO.getInstance().create("", "", "", "");
     }
     
-    public static boolean apagaConsulta(JTable table){
-        if (table.getSelectedRow() >= 0){
-            Object item = ((GenericTableModel)table.getModel()).getItem(table.getSelectedRow());
-            ((GenericTableModel)table.getModel()).removeItem(table.getSelectedRow());
-            ConsultaDAO.getInstance().delete((Consulta)item);
-            return true;
-        }return false;
+    public static List getTodosTratamentos(){
+        return TratamentoDAO.getInstance().retrieveAll();
     }
     
+    /********* Exame *********/
     
-    
-    public static void filtraConsultas(JTable table ) {//mais coisas aqui!!!!!!!!!1
-        
+    public static List getTodosExames(){
+        return ExameDAO.getInstance().retrieveAll();
     }
+    
+ //Create novos tratamentos
+    public static Exame adicionaExames(){
+        return ExameDAO.getInstance().create("",0);
+    }
+
 }
+

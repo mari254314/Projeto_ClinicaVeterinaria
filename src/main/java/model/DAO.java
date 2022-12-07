@@ -112,7 +112,7 @@ public abstract class DAO {
                     + "nome VARCHAR, \n"
                     + "dataFim TEXT, \n"
                     + "dataIni TEXT, \n"
-                    + "id_animal INTEGER); \n");
+                    + "animal VARCHAR); \n");
             executeUpdate(stmt);
             // Table appointment:
             stmt = DAO.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS consulta( \n"
@@ -120,10 +120,9 @@ public abstract class DAO {
                     + "horario INTEGER, \n"
                     + "data DATE, \n"
                     + "comentario VARCHAR, \n"
-                    + "id_veterinario INTEGER, \n"
-                    + "id_animal INTEGER, \n"
+                    + "id_veterinario VARCHAR, \n"
+                    + "id_animal VARCHAR, \n"
                     + "obs VARCHAR); \n");
-//                  + "terminou BOOLEAN); \n"   );
             executeUpdate(stmt);            
              // Table exam:
             stmt = DAO.getConnection().prepareStatement("CREATE TABLE IF NOT EXISTS exame( \n"
