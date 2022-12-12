@@ -6,6 +6,7 @@ package view;
 
 import Controller.Controller;
 import com.formdev.flatlaf.FlatDarkLaf;
+import java.awt.Dialog;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import model.Exame;
@@ -656,9 +657,15 @@ public class vPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        //Botão apaga consulta        
-        Controller.apagaConsulta(Controller.getConsultaSelecionada());
-        //((DetalhesTratTableModel) jTable5.getModel()).removeItem(jTable5.getSelectedRow());
+        //Botão apaga consulta       
+        if(jTable2.getModel() instanceof ConsultaTableModel){
+            JOptionPane.showMessageDialog(this, "Tem certeza?");
+             if(Controller.getConsultaSelecionada()!= null){
+                ((ConsultaTableModel) jTable2.getModel()).removeItem(jTable2.getSelectedRow());   //pra tirar ele da tabela - visual
+                Controller.apagaConsulta(Controller.getConsultaSelecionada());//pra tirar ele do banco
+                JOptionPane.showMessageDialog(this, "Consulta Excluída!");
+            }
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -683,12 +690,12 @@ public class vPrincipal extends javax.swing.JFrame {
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed
         //Inserir Exame
-        if(!Controller.novosDados(jTable2)){
-            JOptionPane.showMessageDialog(this, "Selecione uma Consulta");
-        }else{
+//        if(!Controller.novosDados(jTable2)){
+//            JOptionPane.showMessageDialog(this, "Selecione uma Consulta");
+//        }else{
         vExame exame = new vExame();
         exame.setVisible(true);
-         }
+//         }
     }//GEN-LAST:event_jToggleButton2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed

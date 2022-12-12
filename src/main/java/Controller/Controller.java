@@ -83,11 +83,11 @@ public class Controller {
     public static void setSelected(Object selected){
  
         if(selected instanceof Cliente){
-            clienteSelecionado = (Cliente)selected;
+            clienteSelecionado = (Cliente) selected;
             clienteSelecionadoTextField.setText(clienteSelecionado.getNome());
             animalSelecionadoTextField.setText("");
         }else if(selected instanceof Animal){
-            animalSelecionado = (Animal)selected;
+            animalSelecionado = (Animal) selected;
             animalSelecionadoTextField.setText(animalSelecionado.getNome());
         }else if(selected instanceof Veterinario){
             vetSelecionado = (Veterinario) selected;
@@ -175,6 +175,11 @@ public class Controller {
     public static Animal adicionaAnimais(){
         return AnimalDAO.getInstance().create("", 0,"", 0, clienteSelecionado);
     }
+    
+    //Create novos exames
+    public static Exame adicionaExames(){
+        return ExameDAO.getInstance().create("", 0);
+    }
 
     //Botão Novo = atualiza Botão Novo
     public static boolean novosDados(JTable table){
@@ -226,7 +231,7 @@ public class Controller {
     }
     
     public static Consulta adicionarConsultas(){
-        return ConsultaDAO.getInstance().create(0,Calendar.getInstance(), "", "", "", "");
+        return ConsultaDAO.getInstance().create(Calendar.getInstance(), "", vetSelecionado.getId(), animalSelecionado.getId(), 0);
     }
  
      public static void apagaConsulta(Consulta consulta){
@@ -267,10 +272,5 @@ public class Controller {
         return ExameDAO.getInstance().retrieveAll();
     }
     
- //Create novos tratamentos
-    public static Exame adicionaExames(){
-        return ExameDAO.getInstance().create("",0);
-    }
-
 }
 

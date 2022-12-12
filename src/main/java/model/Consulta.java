@@ -5,19 +5,19 @@ import java.util.Calendar;
 public class Consulta {
     
     private int id;
-    private int horario;
+   // private int horario;
     private Calendar data;
     private String comentario;
-    private String id_veterinario;
-    private String id_animal;
-    private String id_tratamento;
+    private int id_veterinario;
+    private int id_animal;
+    private int id_tratamento;
     //private boolean terminou;
     
     //Construtor
 
-    public Consulta(int id, int horario, Calendar data, String comentario, String id_veterinario, String id_animal, String id_tratamento) {
+    public Consulta(int id, Calendar data, String comentario, int id_veterinario, int id_animal, int id_tratamento) {
         this.id = id;
-        this.horario = horario;
+        //this.horario = horario;
         this.data = data;
         this.comentario = comentario;
         this.id_veterinario = id_veterinario;
@@ -30,14 +30,14 @@ public class Consulta {
     public int getId() {
         return id;
     }
-
-    public int getHorario() {
-        return horario;
-    }
-
-    public void setHorario(int horario) {
-        this.horario = horario;
-    }
+//
+//    public int getHorario() {
+//        return horario;
+//    }
+//
+//    public void setHorario(int horario) {
+//        this.horario = horario;
+//    }
 
     public Calendar getData() {
         return data;
@@ -55,35 +55,35 @@ public class Consulta {
         this.comentario = comentario;
     }
 
-    public String getId_veterinario() {
+    public int getId_veterinario() {
         return id_veterinario;
     }
 
-    public void setId_veterinario(String id_veterinario) {
+    public void setId_veterinario(int id_veterinario) {
         this.id_veterinario = id_veterinario;
     }
 
-    public String getId_animal() {
+    public int getId_animal() {
         return id_animal;
     }
 
-    public void setId_animal(String id_animal) {
+    public void setId_animal(int id_animal) {
         this.id_animal = id_animal;
     }
 
-    public String getId_tratamento() {
+    public int getId_tratamento() {
         return id_tratamento;
     }
 
-    public void setId_tratamento(String id_tratamento) {
+    public void setId_tratamento(int id_tratamento) {
         this.id_tratamento = id_tratamento;
     }
 
     
-    @Override
-    public String toString() {
-        return "Consulta: " + "\nHorário: " + horario + "\nData: " + data + "\nComentário: " + comentario 
-                + "\nId do Veterinário: " + id_veterinario + "\nId do Animal: " + id_animal + "\nId do Tratamento: " + id_tratamento + "\n\n";
-    }
+//    @Override
+//    public String toString() {
+//        return "Consulta: " + "\nHorário: " + horario + "\nData: " + data + "\nComentário: " + comentario 
+//                + "\nId do Veterinário: " + id_veterinario + "\nId do Animal: " + id_animal + "\nId do Tratamento: " + id_tratamento + "\n\n";
+//    }
 
 }

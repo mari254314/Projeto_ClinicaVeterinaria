@@ -23,6 +23,8 @@ public class vTratamento extends javax.swing.JFrame {
 
      private void myInitComponents(){
         Controller.setTableModel(jTable1, new TratamentoTableModel(Controller.getTodosTratamentos()));
+//        jTable1.setEditable(false);
+
      }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
