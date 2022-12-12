@@ -656,23 +656,20 @@ public class vPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-//        if(!Controller.apagaConsulta(jTable2)){
-//            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
-//        }
+        //Botão apaga consulta        
+        Controller.apagaConsulta(Controller.getConsultaSelecionada());
+        //((DetalhesTratTableModel) jTable5.getModel()).removeItem(jTable5.getSelectedRow());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         //Botao Novo de Tratamento
-        if(!Controller.novosDados(jTable3)){
-            JOptionPane.showMessageDialog(this, "Selecione um  tratamento.");
-        }
+        Controller.novosDados(jTable3);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         //Botao Apagar de Tratamento
-//        if(!Controller.apagaTratamento(Controller.getTratamentoSelecionado())){
-//            JOptionPane.showMessageDialog(this, "Selecione um tratamento.");
-//        }
+//        Controller.apagaTratamento(Controller.getTratamentoSelecionado());
+//        ((TratamentoTableModel) jTable3.getModel()).removeItem(jTable3.getSelectedRow());      
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -680,9 +677,8 @@ public class vPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-//         if(!Controller.novosDados(jTable2)){
-//            JOptionPane.showMessageDialog(this, "Selecione uma consulta.");
-//         }
+        //Botão novas consultas 
+        Controller.novosDados(jTable2);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton2ActionPerformed

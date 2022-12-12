@@ -122,6 +122,7 @@ public abstract class DAO {
                     + "comentario VARCHAR, \n"
                     + "id_veterinario VARCHAR, \n"
                     + "id_animal VARCHAR, \n"
+                    + "id_tratamento VARCHAR, \n"
                     + "obs VARCHAR); \n");
             executeUpdate(stmt);            
              // Table exam:
