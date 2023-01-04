@@ -8,7 +8,7 @@ Nele, é possível cadastrar:
 * Veterinários, 
 * Consultas, exames e tratamentos dos animais. 
 
-Além de poder atualizar, deletar e mostrar os dados.
+Além de poder atualizar, deletar e mostrar os dados, conectados com o banco *SQLite*.
 
 
 
